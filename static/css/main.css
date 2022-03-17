@@ -1,5 +1,5 @@
-body{
-	background-color: #464545;
+.body{
+	/*background-color: white;*/
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -8,7 +8,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .box-element{
-	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	/*box-shadow:hsl(0, 0%, 80%) 0 0 16px;*/
 	background-color: #e6ffe6;
 	border-radius: 4px;
 	padding: 10px;
@@ -53,6 +53,7 @@ h1,h2,h3,h4,h5,h6{
 /*}*/
 .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12{
 	margin-top: 10px;
+	/*width: 100px!important;*/
 }
 
 .btn{

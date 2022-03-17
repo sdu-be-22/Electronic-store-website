@@ -1,17 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import *
 import json
 
 
 def store(request):
-    products = Product.objects.all()
+    if 'q' in request.GET:
+        q = request.GET['q']
+        products = Product.objects.filter(name__contains=q)
+    else:
+        products = Product.objects.all()
+
+    sort_by = request.GET.get("sort", "l2h")
+    if sort_by == "l2h":
+        products = products.order_by("price")
+    elif sort_by == "h2l":
+        products = products.order_by("-price")
+    else:
+        products = products.order_by("orderitem__date_added")
+
     context = {'products': products}
     return render(request, 'store/store.html', context)
 
 
 def basket(request):
-
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -39,18 +51,39 @@ def checkout(request):
 
 def smartphones(request):
     products = Product.objects.all()
+
+    sort_by = request.GET.get("sort", "l2h")
+    if sort_by == "l2h":
+        products = products.order_by("price")
+    elif sort_by == "h2l":
+        products = products.order_by("-price")
+
     context = {'products': products}
     return render(request, 'store/smartphones.html', context)
 
 
 def laptops(request):
     products = Product.objects.all()
+
+    sort_by = request.GET.get("sort", "l2h")
+    if sort_by == "l2h":
+        products = products.order_by("price")
+    elif sort_by == "h2l":
+        products = products.order_by("-price")
+
     context = {'products': products}
     return render(request, 'store/laptops.html', context)
 
 
 def cameras(request):
     products = Product.objects.all()
+
+    sort_by = request.GET.get("sort", "l2h")
+    if sort_by == "l2h":
+        products = products.order_by("price")
+    elif sort_by == "h2l":
+        products = products.order_by("-price")
+
     context = {'products': products}
     return render(request, 'store/cameras.html', context)
 
@@ -79,3 +112,4 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
