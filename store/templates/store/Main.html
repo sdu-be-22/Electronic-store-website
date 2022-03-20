@@ -70,11 +70,10 @@
 
             {% if user.is_authenticated %}
                 <p class="nav-link active" style="margin-left: 100px;">{{  user.username }}</p>
-                <li><a class="nav-link active" href="" style="margin-left: 20px;">Sign out</a></li>
-
-
+                <li><a class="nav-link active" href="{% url 'logout' %}">Logout</a></li>
             {% else%}
-                <li><a class="nav-link active" href="" style="margin-left: 120px;">Sign in/up</a></li
+                <li style="margin-left: 50px"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+                <li><a class="nav-link active" href="{% url 'register' %}">Register</a></li>
                 <p>{{  user.name }}</p>
             {% endif %}
         </ul>

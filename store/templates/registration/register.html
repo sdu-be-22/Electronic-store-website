@@ -1,0 +1,17 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <h3>Register Form</h3>
+    <hr/>
+    {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" />
+    </form>
+    <button class="btn btn-outline-success" style="margin-top: 50px"><a href="{% url 'store' %}">Back to Store</a></button>
+{% endblock content %}

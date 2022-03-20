@@ -11,4 +11,8 @@ urlpatterns = [
 	path('cameras/', views.cameras, name='cameras'),
 
 	path('update_item/', views.updateItem, name="update_item"),
+
+	path('accounts/registration/', views.register, name='register'),
+	# path('accounts/registration/', views.register, name='login'),
+	path('', views.home, name='home'),
 ]

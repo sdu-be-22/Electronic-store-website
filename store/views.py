@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import *
@@ -24,6 +26,11 @@ def store(request):
 
 
 def basket(request):
+    # request.user.customer = request.user.username
+    # print(request.user.customer)
+    # if request.user.customer.RelatedObjectDoesNotExist:
+    #     print('iofewj')
+    #     return
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -112,4 +119,21 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse('Item was added', safe=False)
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def register(request):
+    form = UserCreationForm
+    if request.method == 'POST':
+        regForm = UserCreationForm(request.POST)
+        if regForm.is_valid():
+            user = regForm.save()
+            messages.success(request, 'User has been registered.')
+            Customer.objects.create(user=user, name=user.username, email='test@tx.com')
+    return render(request, 'registration/register.html', {'form': form})
+
+
 
