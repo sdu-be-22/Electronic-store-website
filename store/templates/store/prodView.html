@@ -1,21 +1,10 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-    <p style="text-align: center"><strong>Sort by:</strong></p>
-        <div class="dropdown" style="text-align: center; padding-bottom: 20px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Default
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="?sort=l2h">Price: low to high</a>
-                <a class="dropdown-item" href="?sort=h2l">Price: high to low</a>
-                <a class="dropdown-item" href="#"></a>
-                <a class="dropdown-item" href="#"></a>
-            </div>
-        </div>
-     <div class="row" style="justify-content: center; display: flex">
+    tovar
+    <div class="row" style="justify-content: center; display: flex">
         {% for product in products %}
-         <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">
+{#         <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">#}
             <div style="justify-content: center; display: flex">
                 <img style="text-align: center" class="thumbnail" src="{{product.imageURL}}">
             </div>
@@ -32,7 +21,19 @@
                 <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-basket" style="background-color: rgb(255,78,91); float: right; font-size: 14px; color: antiquewhite"> Add to basket</button>
 {#                <a class="btn btn-outline-success" href="">View</a>#}
             </div>
-        </div>
+{#        </div>#}
         {% endfor %}
     </div>
+{#         <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">#}
+{#            <div style="justify-content: center; display: flex">#}
+{#                <img style="text-align: center" class="thumbnail" src="{{product.imageURL}}">#}
+{#            </div>#}
+{#            <div class="box-element product">#}
+{#                <hr>#}
+{#                <h4 style="display: inline-block; "><strong>$ {{ product.price|floatformat:2 }}</strong></h4>#}
+{#                <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-basket" style="background-color: rgb(255,78,91); float: right"><img src="images/shcar.png" style="" height="32px"></button>#}
+{#                <a class="btn btn-outline-success" href="">View</a>#}
+{#            </div>#}
+{##}
+{#        </div>#}
 {% endblock content %}

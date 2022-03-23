@@ -16,6 +16,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
+
     SM = 'Smartphones'
     LT = 'Laptops'
     CM = 'Cameras'

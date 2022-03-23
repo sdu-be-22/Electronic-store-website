@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import *
+from django.views.generic import ListView
 import json
+
 
 
 def store(request):
@@ -12,7 +14,6 @@ def store(request):
         products = Product.objects.filter(name__contains=q)
     else:
         products = Product.objects.all()
-
     sort_by = request.GET.get("sort", "l2h")
     if sort_by == "l2h":
         products = products.order_by("price")
@@ -136,4 +137,8 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+def productView(request, myid):
+    products = Product.objects.filter(id=myid)
+    context = {'products': products}
+    return render(request, "store/prodView.html", context)
 

@@ -49,9 +49,9 @@
             <li class="nav-item active" style="margin-left: 30px">
                 <a class="nav-link" href="{% url 'basket' %}">Basket{#<img  id="cart-icon" src="{% static 'images/cart.png' %}">#}</a>
             </li>
-            <li class="nav-item active" style="margin-left: 30px">
-                <a class="nav-link" href="{% url 'basket' %}">Liked</a>
-            </li>
+{#            <li class="nav-item active" style="margin-left: 30px">#}
+{#                <a class="nav-link" href="{% url 'basket' %}">Liked</a>#}
+{#            </li>#}
             <li class="nav-item active" style="margin-left: 30px">
               <a class="nav-link" href="{% url 'checkout' %}">Checkout</a>
             </li>
@@ -68,11 +68,21 @@
                 </div>
             </li>
 
+{#        <div class="dropdown" style="padding-left: 20px">#}
+{#            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#            ₸/$#}
+{#            </button>#}
+{#            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+{#                <a class="dropdown-item" href="?priceType=dollar">₸</a>#}
+{#                <a class="dropdown-item" href="?priceType=tenge">$</a>#}
+{#            </div>#}
+{#        </div>#}
+
             {% if user.is_authenticated %}
-                <p class="nav-link active" style="margin-left: 100px;">{{  user.username }}</p>
+                <p class="nav-link active" style="margin-left: 200px;">{{  user.username }}</p>
                 <li><a class="nav-link active" href="{% url 'logout' %}">Logout</a></li>
             {% else%}
-                <li style="margin-left: 50px"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
+                <li style="margin-left: 200px"><a class="nav-link active" href="{% url 'login' %}">Login</a></li>
                 <li><a class="nav-link active" href="{% url 'register' %}">Register</a></li>
                 <p>{{  user.name }}</p>
             {% endif %}
@@ -82,13 +92,28 @@
 
 
     </nav>
-
-    <div class="container">
+    <div style="justify-content: center;display: flex">
+{#        <div class="miniblock">#}
+{#                <div class="mini" style="border-top:0px; padding-top:0px;">#}
+{#                    <i style="font-size:18px; font-weight: bold; margin-left: 15px;">Каталог товаров</i><br>#}
+{#                    <a href="">Смартфоны и гаджеты</a><br>#}
+{#                    <a href="">Ноутбуки и компьютеры</a><br>#}
+{#                    <a href="">Телевизоры</a><br>#}
+{#                    <a href="">Бытовая техника</a><br>#}
+{#                    <a href="">Фотоаппараты, видеокамеры</a><br>#}
+{#                    <a href="">Игры и приставки</a><br>#}
+{#                </div>#}
+{#                <div style="padding-top:20px;"></div>#}
+{#            </div>#}
+        <div class="container">
         <br>
         {% block content %}
 
         {% endblock content %}
     </div>
+    </div>
+
+
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
