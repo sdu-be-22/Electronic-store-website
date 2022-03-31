@@ -2,45 +2,71 @@
 {% load static %}
 {% block content %}
      <div class="row">
-        <div class="col-lg-6">
-            <div class="box-element" id="form-wrapper">
-                <form id="form">
-                    <div id="user-info">
-                        <div class="form-field">
-                            <input required class="form-control" type="text" name="name" placeholder="Name..">
-                        </div>
-                        <div class="form-field">
-                            <input required class="form-control" type="email" name="email" placeholder="Email..">
-                        </div>
-                    </div>
-
-                    <div id="shipping-info">
-                        <hr>
-                        <p>Shipping Information:</p>
-                        <hr>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="address" placeholder="Address..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="city" placeholder="City..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="state" placeholder="State..">
-                        </div>
-                        <div class="form-field">
-                            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                        </div>
-                    </div>
-                    <hr>
-                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-                </form>
+     <div class="sendMessage">
+         {% if messageSent %}
+            <div class="container">
+                <h3><strong>Email successfully sent</strong></h3>
+                <p>Your message was successfully sent to {{ form.cleaned_data.to }}</p>
             </div>
-            <br>
-            <div class="box-element hidden" id="payment-info">
-                <small>Paypal Options</small>
+        {% else %}
+        <div class="container">
+          <h3><strong>Send E-mail</strong></h3>
+          <form method="post">
+            {% csrf_token %} {{ form.as_p }}
+            <br />
+            <div class="text-center">
+              <input
+                type="submit"
+                class="btn btn-secondary"
+                style="width: 100%"
+                value="Send e-mail"
+              />
             </div>
-
+          </form>
         </div>
+        {% endif %}
+     </div>
+
+{#        <div class="col-lg-6">#}
+{#            <div class="box-element" id="form-wrapper">#}
+{#                <form id="form">#}
+{#                    <div id="user-info">#}
+{#                        <div class="form-field">#}
+{#                            <input required class="form-control" type="text" name="name" placeholder="Name..">#}
+{#                        </div>#}
+{#                        <div class="form-field">#}
+{#                            <input required class="form-control" type="email" name="email" placeholder="Email..">#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                    <div id="shipping-info">#}
+{#                        <hr>#}
+{#                        <p>Shipping Information:</p>#}
+{#                        <hr>#}
+{#                        <div class="form-field">#}
+{#                            <input class="form-control" type="text" name="address" placeholder="Address..">#}
+{#                        </div>#}
+{#                        <div class="form-field">#}
+{#                            <input class="form-control" type="text" name="city" placeholder="City..">#}
+{#                        </div>#}
+{#                        <div class="form-field">#}
+{#                            <input class="form-control" type="text" name="state" placeholder="State..">#}
+{#                        </div>#}
+{#                        <div class="form-field">#}
+{#                            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <hr>#}
+{#                    <a href=""><input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue"></a>#}
+{##}
+{#                </form>#}
+{#            </div>#}
+{#            <br>#}
+{#            <div class="box-element hidden" id="payment-info">#}
+{#                <small>Paypal Options</small>#}
+{#            </div>#}
+{##}
+{#        </div>#}
 
         <div class="col-lg-6">
             <div class="box-element">
@@ -64,4 +90,6 @@
             </div>
         </div>
     </div>
+
+
 {% endblock content %}

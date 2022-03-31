@@ -1,4 +1,4 @@
-from importlib.resources import _
+# from importlib.resources import _
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -25,11 +25,13 @@ class Product(models.Model):
         (LT, 'Laptops'),
         (CM, 'Cameras'),
     ]
-    prTypes = models.CharField(_("Product type"), max_length=50, choices=typesOfProducts, blank=True)
+    prTypes = models.CharField(("Product type"), max_length=50, choices=typesOfProducts, blank=True)
     name = models.CharField(max_length=200)
     price = models.FloatField()
     # digital = models.BooleanField(default=False, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+
+    # characteristic = models.CharField(max_length=500)
 
     def __str__(self):
         return self.name
@@ -97,3 +99,18 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)

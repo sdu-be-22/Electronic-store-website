@@ -3,8 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import *
+from .forms import CommentForm
 from django.views.generic import ListView
 import json
+from django.shortcuts import render
+from .forms import EmailForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -137,8 +142,83 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+# def productView(request, myid):
+#     products = Product.objects.filter(id=myid)
+#     context = {'products': products}
+#     return render(request, "store/prodView.html", context)
+
+
+
 def productView(request, myid):
-    products = Product.objects.filter(id=myid)
-    context = {'products': products}
+    product = Product.objects.filter(id=myid)
+    comments = product[0].comments.filter(active=True)
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product = product[0]
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+
+
+    context = {'products': product,
+                                           'comments': comments,
+                                           'new_comment': new_comment,
+                                           'comment_form': comment_form}
     return render(request, "store/prodView.html", context)
 
+
+
+# from django.core.mail import BadHeaderError, send_mail
+# from django.http import HttpResponse, HttpResponseRedirect
+
+def sendMail(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'get_basket_total': 0, 'get_basket_items': 0}
+
+    # context = {'items': items, 'order': order}
+
+    # create a variable to keep track of the form
+    messageSent = False
+
+    # check if form has been submitted
+    if request.method == 'POST':
+
+        form = EmailForm(request.POST)
+
+        # check if data from the form is clean
+        if form.is_valid():
+            cd = form.cleaned_data
+            subject = "Sending an email with Django from BuyDream shop"
+            # message = cd['message']
+            message = "Уважаемый " + str(cd['name']) + " Мы приняли ваш заказ, ожидайте свой заказ, по следующему указанному адресу: " + str(cd['city']) + ", " + str(cd['address']) + ". Курьер  заранее вам позванит."
+            message = message + ". Стоимость вашего заказа: $" + str(order.get_basket_total) + ". Можете оплатить удобным вам образом."
+            # send the email to the recipent
+            send_mail(subject, message,
+                      settings.DEFAULT_FROM_EMAIL, [cd['recipient']])
+
+            # set the variable initially created to True
+            messageSent = True
+
+    else:
+        form = EmailForm()
+
+    return render(request, 'store/Checkout.html', {
+
+        'form': form,
+        'messageSent': messageSent,
+        'items': items,
+        'order': order,
+
+    })

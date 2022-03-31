@@ -1,24 +1,18 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-    tovar
     <div class="row" style="justify-content: center; display: flex">
         {% for product in products %}
-{#         <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">#}
-            <div style="justify-content: center; display: flex">
-                <img style="text-align: center" class="thumbnail" src="{{product.imageURL}}">
+            <div style="justify-content: center; height: 400px; padding-right: 50px; display: flex">
+                <img style="text-align: center;"  src="{{product.imageURL}}">
             </div>
-            <div class="box-element product">
-                <h6 style="text-align: center">
-                    <a href="products/{{ product.id }}">
-                    <button id="qv{{ product.id }}" class="btn btn-primary">
+            <div class="box-element product" style="display: block!important;">
+                <h3 style="text-align: center">
                         {{ product.name }}
-                    </button>
-                    </a>
-                </h6>
+                </h3>
                 <hr>
-                <h4 style="display: inline-block; "><strong>$ {{ product.price|floatformat:2 }}</strong></h4>
-                <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-basket" style="background-color: rgb(255,78,91); float: right; font-size: 14px; color: antiquewhite"> Add to basket</button>
+                <h4><strong>$ {{ product.price|floatformat:2 }}</strong></h4>
+                <button data-product={{ product.id }} data-action="add" class="btn btn-primary" style="font-size: 18px;"> Add to basket</button>
 {#                <a class="btn btn-outline-success" href="">View</a>#}
             </div>
 {#        </div>#}
@@ -36,4 +30,61 @@
 {#            </div>#}
 {##}
 {#        </div>#}
+
+
+<div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        <!-- comments -->
+        <h2>{{ comments.count }} comments</h2>
+
+        {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+
+
+
+
+ {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+
+
+
 {% endblock content %}
+
+
+
