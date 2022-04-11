@@ -27,11 +27,13 @@ class Product(models.Model):
     ]
     prTypes = models.CharField(("Product type"), max_length=50, choices=typesOfProducts, blank=True)
     name = models.CharField(max_length=200)
-    price = models.FloatField()
+    brandName = models.CharField(max_length=200, default='noname')
+    price = models.FloatField(max_length=140)
     # digital = models.BooleanField(default=False, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 
     # characteristic = models.CharField(max_length=500)
+    # brand = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
@@ -43,6 +45,23 @@ class Product(models.Model):
         except:
             url = ''
         return url
+
+
+class ProductParametrName(models.Model):
+    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, related_name='parameter_names')
+    name = models.CharField(max_length=200)
+
+    def str(self):
+        return ("%s %s") % (self.product.name, self.name)
+
+
+class ProductParametrValue(models.Model):
+    parameter_name = models.OneToOneField(ProductParametrName, null=True, blank=True, on_delete=models.CASCADE, related_name='parameter_value')
+    name = models.CharField(max_length=200)
+
+    def str(self):
+        return ("%s %s %s") % (self.parameter_name.product.name, self.parameter_name.name, self.name)
+
 
 
 class Order(models.Model):
@@ -74,6 +93,8 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.quantity for item in orderitems])
         return total
+
+
 
 
 class OrderItem(models.Model):
@@ -114,3 +135,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+
