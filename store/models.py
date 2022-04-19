@@ -16,24 +16,28 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-
     SM = 'Smartphones'
     LT = 'Laptops'
     CM = 'Cameras'
+    WT = 'Watch'
     typesOfProducts = [
         ('Smartphones', 'Smartphones'),
         (LT, 'Laptops'),
         (CM, 'Cameras'),
+        (WT, 'Watch')
     ]
     prTypes = models.CharField(("Product type"), max_length=50, choices=typesOfProducts, blank=True)
     name = models.CharField(max_length=200)
-    brandName = models.CharField(max_length=200, default='noname')
+    brandName = models.CharField(max_length=200)
+
     price = models.FloatField(max_length=140)
     # digital = models.BooleanField(default=False, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    description = models.CharField(max_length=1000, default="")
 
     # characteristic = models.CharField(max_length=500)
     # brand = models.CharField(max_length=50)
+
 
     def __str__(self):
         return self.name
@@ -48,7 +52,8 @@ class Product(models.Model):
 
 
 class ProductParametrName(models.Model):
-    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, related_name='parameter_names')
+    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE,
+                                related_name='parameter_names')
     name = models.CharField(max_length=200)
 
     def str(self):
@@ -56,12 +61,12 @@ class ProductParametrName(models.Model):
 
 
 class ProductParametrValue(models.Model):
-    parameter_name = models.OneToOneField(ProductParametrName, null=True, blank=True, on_delete=models.CASCADE, related_name='parameter_value')
+    parameter_name = models.OneToOneField(ProductParametrName, null=True, blank=True, on_delete=models.CASCADE,
+                                          related_name='parameter_value')
     name = models.CharField(max_length=200)
 
     def str(self):
         return ("%s %s %s") % (self.parameter_name.product.name, self.parameter_name.name, self.name)
-
 
 
 class Order(models.Model):
@@ -95,8 +100,6 @@ class Order(models.Model):
         return total
 
 
-
-
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
@@ -123,7 +126,7 @@ class ShippingAddress(models.Model):
 
 
 class Comment(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name='comments')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
@@ -135,5 +138,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
-
-

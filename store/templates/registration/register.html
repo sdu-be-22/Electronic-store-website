@@ -1,8 +1,18 @@
-{% extends 'store/main.html' %}
+{% extends 'store/template.html' %}
 {% load static %}
 {% block content %}
-    <h3>Register Form</h3>
-    <hr/>
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Register Form</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-bottom: 20px; margin-top: 20px;" class="container">
     {% if messages %}
         {% for message in messages %}
         <p>{{message}}</p>
@@ -14,4 +24,5 @@
         <input type="submit" />
     </form>
     <button class="btn btn-outline-success" style="margin-top: 50px"><a href="{% url 'store' %}">Back to Store</a></button>
+    </div>
 {% endblock content %}

@@ -1,7 +1,7 @@
-{% extends 'store/main.html' %}
+{% extends 'store/template.html' %}
 {% load static %}
 {% block content %}
-    <h1>Smartphones</h1>
+    <h1 style="margin-left: 700px">Smartphones</h1>
     <p style="text-align: center"><strong>Sort by:</strong></p>
         <div class="dropdown" style="text-align: center; padding-bottom: 20px">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,22 +14,25 @@
                 <a class="dropdown-item" href="#"></a>
             </div>
         </div>
+    <div class="single-product-area">
+        <div class="container">
      <div class="row">
-        {% for product in products %}
-            {% if product.prTypes == 'Smartphones' %}
-                <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">
-            <div style="justify-content: center; display: flex">
-                <img style="text-align: center" class="thumbnail" src="{{product.imageURL}}">
-            </div>
-            <div class="box-element product">
-                <h6 style="text-align: center"><strong>{{ product.name }}</strong></h6>
-                <hr>
-                <h4 style="display: inline-block; "><strong>$ {{ product.price|floatformat:2 }}</strong></h4>
-                <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-basket" style="background-color: rgb(255,78,91); float: right"><img src="images/shcar.png" style="" height="32px"></button>
-{#                <a class="btn btn-outline-success" href="">View</a>#}
-            </div>
-        </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+            {% for product in products %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img style="width: 180px;  height: 180px;" src="{{product.imageURL}}" alt="">
+                        </div>
+                        <h2><a href="">{{ product.name }}</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>${{ product.price }}</ins>
+                        </div>
+
+                        <div class="product-option-shop">
+                            <a data-product={{ product.id }} data-action="add" class="add_to_cart_button update-basket" >Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </div></div></div>
 {% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'store/template.html' %}
+{% load static %}
+{% block content %}
+    <div class="product-big-title-area"  style="margin-bottom: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Checkout</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+            <div class="box-element">
+                <a style="font-size: 22px" class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Basket</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for item in items %}
+
+                    <div class="cart-row">
+                        <div style="flex:2"><img class="row-image" src="{{ item.product.imageURL }}"></div>
+                        <div style="flex:2"><p>{{ item.product.name }}</p></div>
+                        <div style="flex:1"><p>${{ item.product.price }}</p></div>
+                        <div style="flex:1"><p>x{{ item.quantity }}</p></div>
+                    </div>
+
+                {% endfor %}
+
+                <h3>Items: {{ order.get_basket_items }}</h3>
+                <h3>Total: ${{ order.get_basket_total|floatformat:2 }}</h3>
+            </div>
+        </div>
+
+
+     <div class="sendMessage" style="margin-top: 50px;">
+         {% if messageSent %}
+            <div class="container">
+                <h3><strong>Email successfully sent</strong></h3>
+                <p>Your message was successfully sent to {{ form.cleaned_data.to }}</p>
+            </div>
+         {% else %}
+         <div class="container">
+             <h3><strong>Send E-mail</strong></h3>
+             <form method="post">
+                 {% csrf_token %} {{ form.as_p }}
+                 <br />
+                 <div class="text-center">
+                     <input
+                        type="submit"
+                        class="btn btn-secondary"
+                        style="width: 100%; margin-bottom: 50px;"
+                        value="Send e-mail"
+                     />
+                 </div>
+             </form>
+         </div>
+         {% endif %}
+     </div>
+
+{% endblock content %}

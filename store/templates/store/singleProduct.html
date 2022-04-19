@@ -1,0 +1,122 @@
+{% extends 'store/template.html' %}
+{% load static %}
+{% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Shop</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="product-content-right">
+                        <div class="product-breadcroumb">
+                            <a href="">Home</a>
+                            <a href="">{{ product.prTypes }}</a>
+                            <a href="">{{ product.name }}</a>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="product-images">
+                                    <div class="product-main-img">
+                                        <img style="height: 350px;" src="{{ product.imageURL}}" alt="">
+                                    </div>
+
+                                    <div class="product-gallery">
+                                        <img src="{{ product.imageURL}}" alt="">
+                                        <img src="{{ product.imageURL}}" alt="">
+                                        <img src="{{ product.imageURL}}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="product-inner">
+                                    <h2 class="product-name">{{ product.name}}</h2>
+                                    <div class="product-inner-price">
+                                        <ins>${{ product.price }}</ins>
+                                    </div>
+
+                                    <form action="" class="cart">
+                                        <div class="product-option-shop">
+                                            <a data-product={{ product.id }} data-action="add" class="add_to_cart_button update-basket" >Add to cart</a>
+                                        </div>
+                                    </form>
+
+                                    <div class="product-inner-category">
+                                        <p>Category: <a href="">{{ product.prTypes }}</a></p>
+                                    </div>
+
+                                    <div role="tabpanel">
+                                        <ul class="product-tab" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                <h2>Product Description</h2>
+                                                <p>{{ product.description }}</p>
+{#                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>#}
+
+{#                                                <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>#}
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h2>Reviews</h2>
+                                                <div class="col-md-8 card mb-4  mt-3 ">
+                                                  <div class="card-body">
+                                                    <!-- comments -->
+                                                    <h2>{{ comments.count }} comments</h2>
+
+                                                    {% for comment in comments %}
+                                                    <div class="comments" style="padding: 10px;">
+                                                      <p class="font-weight-bold">
+                                                        {{ comment.name }}
+                                                        <span class=" text-muted font-weight-normal">
+                                                          {{ comment.created_on }}
+                                                        </span>
+                                                      </p>
+                                                      {{ comment.body | linebreaks }}
+                                                    </div>
+                                                    {% endfor %}
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-8 card mb-4  mt-3 ">
+                                                  <div class="card-body">
+                                                    {% if new_comment %}
+                                                    <div class="alert alert-success" role="alert">
+                                                      Your comment is awaiting moderation
+                                                    </div>
+                                                    {% else %}
+                                                    <h3>Leave a comment</h3>
+                                                    <form method="post" style="margin-top: 1.3em;">
+                                                      {{ comment_form.as_p }}
+                                                      {% csrf_token %}
+                                                      <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                                                    </form>
+                                                    {% endif %}
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

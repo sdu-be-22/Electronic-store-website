@@ -1,9 +1,8 @@
-{% extends 'store/main.html' %}
+{% extends 'store/template.html' %}
 {% load static %}
 {% block content %}
 
     <div class="row" style="justify-content: center; display: flex">
-
 {#         <div class="col-lg-3" style="border: darkslategray 2px solid; margin-left: 50px; margin-bottom: 20px">#}
             <div style="justify-content: center; display: flex">
                 <img style="text-align: center" class="thumbnail" src="{{product.imageURL}}">
@@ -33,7 +32,7 @@
     <div>
 
     </div>
-<div class="col-md-8 card mb-4  mt-3 ">
+    <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         <!-- comments -->
         <h2>{{ comments.count }} comments</h2>

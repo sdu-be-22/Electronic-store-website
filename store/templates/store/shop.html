@@ -1,0 +1,84 @@
+{% extends 'store/template.html' %}
+{% load static %}
+{% block content %}
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Shop</h2>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align: center"><strong>Sort by:</strong></p>
+        <div class="dropdown" style="text-align: center; padding-bottom: 20px">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Default
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+                <a class="dropdown-item" href="?sort=l2h">Price: low to high</a>
+                <a class="dropdown-item" href="?sort=h2l">Price: high to low</a>
+            </div>
+        </div>
+    {#for loop should start here bro#}
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img style="width: 180px;  height: 180px;" src="{{product.imageURL}}" alt="">
+                        </div>
+                        <h2><a href="products/{{ product.id }}">
+{#                            <button id="qv{{ product.id }}" class="btn btn-primary">#}
+                                {{ product.name }}
+{#                            </button>#}
+                        </a></h2>
+                        <div class="product-carousel-price">
+                            <ins>${{ product.price }}</ins>
+                        </div>
+
+                        <div class="product-option-shop">
+                            <a data-product={{ product.id }} data-action="add" class="add_to_cart_button update-basket" >Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-pagination text-center">
+                        <nav>
+                          <ul class="pagination">
+                            <li>
+                              <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                              <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
