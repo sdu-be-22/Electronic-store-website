@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -26,8 +28,9 @@ def index(request): # here all are work fine #
         products = products.order_by("orderitem__date_added")
 
     brands = Product.objects.all().order_by('brandName').values('brandName').distinct()
+    recentlyViewedProducts = Product.objects.all().order_by('-last_visit')
 
-    context = {'products': products, 'brands': brands}
+    context = {'products': products, 'brands': brands, 'recentlyViewedProducts': recentlyViewedProducts}
 
     return render(request, 'store/index.html', context)
 
@@ -140,6 +143,8 @@ def productView(request, myid):
     product = Product.objects.get(id=myid)
     comments = product.comments.filter(active=True)
     new_comment = None
+    product.last_visit = datetime.now()
+    product.save()
 
 
     # Comment posted

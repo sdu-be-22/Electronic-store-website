@@ -87,19 +87,19 @@
                     <div class="latest-product">
                         <h2 class="section-title">Latest Products</h2>
                         <div class="product-carousel">
-                            {% for product in products|slice:":9" %}
+                            {% for product in recentlyViewedProducts %}
                             <div class="single-product">
                                 <div class="product-f-image">
                                     <img style="height: 230px; width: 180px" src="{{product.imageURL}}" alt="">
                                     <div class="product-hover">
-                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>View</a>
+                                        <a href="shop/products/{{ product.id }}" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>View</a>
                                     </div>
                                 </div>
 
                                 <h2>{{ product.name }}</h2>
 
                                 <div class="product-carousel-price">
-                                    <ins>$1200.00</ins> <del>$1355.00</del>
+                                    <ins>${{ product.price }}</ins>
                                 </div>
                             </div>
                             {% endfor %}

@@ -37,6 +37,7 @@ class Product(models.Model):
 
     # characteristic = models.CharField(max_length=500)
     # brand = models.CharField(max_length=50)
+    last_visit = models.DateTimeField(blank=True, null=True)
 
 
     def __str__(self):
