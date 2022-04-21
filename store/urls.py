@@ -15,6 +15,7 @@ urlpatterns = [
   path('accounts/registration/', views.register, name='register'),
   path('', views.index, name='home'),
   path('shop/products/<int:myid>', views.productView, name="productView"),
+  path('brands/<str:brandName>', views.brandView, name="brandView"),
 
 
 

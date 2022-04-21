@@ -131,4 +131,15 @@
             </div>
         </div>
     </div> <!-- End brands area -->
+
+    <div class="" style="justify-content: center; display: flex; padding-bottom: 50px">
+        {% for brand in brands %}
+            <div style="background-color: #e1eef3;margin-left: 10px; border: solid #797777 2px; align-items: center; justify-content: center; display: flex;">
+                <p style="text-align: center; font-size: 32px; padding: 10px; "><a href="brands/{{ brand.brandName }}">{{ brand.brandName }}</a></p>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
 {% endblock %}
