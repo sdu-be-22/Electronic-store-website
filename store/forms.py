@@ -14,7 +14,7 @@ class EmailForm(forms.Form):
     recipient = forms.EmailField()
     city = forms.CharField()
     address = forms.CharField()
-    message = "Уважаемый " + str(name) + " Мы приняли ваш заказ, ожидайте свой заказ, по следующему указанному адресу: " + str(city)+" "+str(address)+". Курьер  заранее вам позванит."
+    message = "Dear " + str(name) + " We have accepted your order, wait for your order at the following address: " + str(city)+" "+str(address)+". The courier will call you in advance."
 
 
 # class NewProduct(forms.Form):
